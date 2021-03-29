@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'personalprofile',
     'widget_tweaks',
-    'phonenumber_field'
+    'phonenumber_field',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'crudapp.urls'
@@ -66,10 +68,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'crudapp.wsgi.application'
 
@@ -122,3 +131,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# GitHub login client ID & secret
+SOCIAL_AUTH_GITHUB_KEY = os.environ['OAUTH_CLIENT_ID']
+SOCIAL_AUTH_GITHUB_SECRET = os.environ['OAUTH_CLIENT_SECRET']
+
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+LOGIN_REDIRECT_URL = 'index'
+
+LOGIN_REDIRECT_URL = '/profiles'
+LOGOUT_REDIRECT_URL = '/'
