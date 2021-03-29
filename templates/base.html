@@ -12,7 +12,9 @@
   </head>
 
   <body>
+    {% if user.is_authenticated %}
     <header>{% include 'navbar.html' %}</header>
+    {% endif %}
     <div class="container">
       <div class="row">{% block content %} {% endblock %}</div>
     </div>
