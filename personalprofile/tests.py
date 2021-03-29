@@ -1,39 +1,23 @@
 from django.contrib.auth.models import User
 from django.test import Client, RequestFactory, TestCase
-from django.urls import reverse
 
-from crudapp.constants import TEST_PASSWORD, TEST_USER
-
-from .views import AddView, IndexView
+from .constants import TEST_PASSWORD, TEST_USER, TEST_VIEWS_LIST
 
 
-class ViewTest(TestCase):
+class ViewsTest(TestCase):
     def setUp(self):
-        self.test_url_names = [
-            {
-                "url": "personalprofile:index",
-                "expected": "/",
-                "view": IndexView,
-            },
-            {
-                "url": "personalprofile:add",
-                "expected": "/add/",
-                "view": AddView,
-            },
-        ]
+        self.test_url_names = TEST_VIEWS_LIST
         self.client = Client()
         self.user = self.client.login(username=TEST_USER, password=TEST_PASSWORD)
 
     def test_urls(self):
         for test_url in self.test_url_names:
             with self.subTest(test_url=test_url["url"]):
-                url = reverse(test_url["url"])
+                url = test_url["url"]
                 self.assertEqual(url, test_url["expected"])
 
-    def test_get(self):
+    def test_urls_after_login_returns_200(self):
         for test_url in self.test_url_names:
             with self.subTest(test_url=test_url["url"]):
-                request = RequestFactory().get(test_url["url"])
-                request.user = self.user
-                response = test_url["view"].as_view()(request)
+                response = self.client.get(test_url["url"], follow=True)
                 self.assertEquals(response.status_code, 200)
