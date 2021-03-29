@@ -11,7 +11,9 @@
       <p class="card-text">{{item.phone_no}}</p>
       <!-- Profile options -->
       <div class="btn-group">
-        <a href="#" class="card-link">View</a>
+        <a href="{% url 'personalprofile:info' item.pk %}" class="card-link"
+          >View</a
+        >
         <a href="{% url 'personalprofile:edit' item.pk %}" class="card-link"
           >Edit</a
         >

@@ -6,11 +6,6 @@ from django.views import generic
 from .models import PersonalProfile
 
 
-@login_required(login_url="/login/")
-def home(request):
-    return render(request, "index.html")
-
-
 class IndexView(generic.ListView):
     model = PersonalProfile
     template_name = "index.html"

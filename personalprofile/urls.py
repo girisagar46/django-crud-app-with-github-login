@@ -6,10 +6,14 @@ from . import views
 app_name = "personalprofile"
 
 urlpatterns = [
-    path("", views.home, name="index"),
+    path(
+        "",
+        login_required(views.IndexView.as_view(), login_url="/login/"),
+        name="index",
+    ),
     path(
         "accounts/profile/",
-        login_required(views.home, login_url="/login/"),
+        login_required(views.IndexView.as_view(), login_url="/login/"),
         name="profile",
     ),
     path("add/", login_required(views.AddView.as_view(), login_url="/login/"), name="add"),
@@ -19,7 +23,7 @@ urlpatterns = [
         name="profiles",
     ),
     path(
-        "<int:pk>/",
+        "info/<int:pk>/",
         login_required(views.InfoView.as_view(), login_url="/login/"),
         name="info",
     ),
