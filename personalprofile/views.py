@@ -1,9 +1,9 @@
-from .models import PersonalProfile
-from django.views import generic
-from django.urls import reverse_lazy
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import generic
+
+from .models import PersonalProfile
 
 
 @login_required(login_url="/login/")
