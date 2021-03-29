@@ -9,19 +9,16 @@ class PersonalProfile(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
-    description  = models.TextField(null=True)
+    description = models.TextField(null=True)
     phone_no = PhoneNumberField(blank=True, unique=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(default=timezone.now)
 
-
     def get_absolute_url(self):
-        return reverse('personalprofile:info', args=[self.id])
-    
+        return reverse("personalprofile:info", args=[self.id])
 
     class Meta:
-        ordering = ['-published_at']
-    
-    
+        ordering = ["-published_at"]
+
     def __str__(self):
         return self.name

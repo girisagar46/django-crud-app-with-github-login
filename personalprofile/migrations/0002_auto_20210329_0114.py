@@ -7,13 +7,15 @@ import phonenumber_field.modelfields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('personalprofile', '0001_initial'),
+        ("personalprofile", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='personalprofile',
-            name='phone_no',
-            field=phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, region=None, unique=True),
+            model_name="personalprofile",
+            name="phone_no",
+            field=phonenumber_field.modelfields.PhoneNumberField(
+                blank=True, max_length=128, region=None, unique=True
+            ),
         ),
     ]
