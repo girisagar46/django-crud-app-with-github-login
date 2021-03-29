@@ -18,6 +18,8 @@ Then access http://localhost:8080 through thr browser
 
 ## Unit tests
 
+※ Please remember to have your testuser already created as described [in the prerequisite](./docs/PREREQUISITE.md).
+
 ```bash
 ❯ python manage.py test
 ```
