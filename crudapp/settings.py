@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from dotenv import dotenv_values
+
+# For loading environment variables
+config = dotenv_values(".env")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "1@b@917m44%yg)u-_--+0l77es)kik!b)+wf_24f+_dxx$dwzj"
+SECRET_KEY = config["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -133,8 +138,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # GitHub login client ID & secret
-SOCIAL_AUTH_GITHUB_KEY = os.environ["OAUTH_CLIENT_ID"]
-SOCIAL_AUTH_GITHUB_SECRET = os.environ["OAUTH_CLIENT_SECRET"]
+SOCIAL_AUTH_GITHUB_KEY = config["OAUTH_CLIENT_ID"]
+SOCIAL_AUTH_GITHUB_SECRET = config["OAUTH_CLIENT_SECRET"]
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
