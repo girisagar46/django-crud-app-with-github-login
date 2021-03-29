@@ -1,3 +1,13 @@
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 
-# Create your tests here.
+from .views import IndexView
+
+
+class IndexViewTest(TestCase):
+    def test_template_name_in_context(self):
+        request = RequestFactory().get("/")
+        view = IndexView()
+        view.setup(request)
+
+        context = view.template_name
+        self.assertEquals("index.html", context)
