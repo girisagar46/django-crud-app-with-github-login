@@ -30,14 +30,14 @@ class EditView(generic.UpdateView):
     template_name = "edit.html"
     fields = "__all__"
     pk_url_kwarg = "pk"
-    success_url = reverse_lazy("personalprofile:index")
+    success_url = reverse_lazy("personalprofile:profiles")
 
 
 class DeleteView(generic.DeleteView):
     model = PersonalProfile
     template_name = "confirm-delete.html"
     pk_url_kwarg = "pk"
-    success_url = reverse_lazy("personalprofile:index")
+    success_url = reverse_lazy("personalprofile:profiles")
 
 
 class AllProfilesView(generic.ListView):
