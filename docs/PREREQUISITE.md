@@ -36,3 +36,9 @@ We also need to create a superuser for testing later. Make note of the password.
 ```bash
 ❯ python manage.py createsuperuser testuser
 ```
+
+## Make migrations
+
+```bash
+❯ python manage.py makemigrations && python manage.py migrate
+```
