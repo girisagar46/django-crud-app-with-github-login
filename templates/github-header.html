@@ -1,12 +1,26 @@
 <div class="container">
-  <h1>Hi, {{user.username}}!</h1>
-  <p>
-    To get started, click
-    <a href="{% url 'personalprofile:profiles' %}">"All profiles"</a> to view
-    all added personal information about you that have been added.
-  </p>
-  <p>
-    Or, go to
-    <a href="{% url 'personalprofile:add' %}">"Add new"</a> to create one.
-  </p>
+  {% for item in profile.values %}
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{item.username}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{item.email}}</h6>
+        <p class="card-text">{{item.description}}</p>
+        <pre>{{item.additional_info}}</pre>
+        <!-- Profile options -->
+        <div class="btn-group">
+          <a href="{% url 'personalprofile:info' item.id %}" class="card-link"
+            >View</a
+          >
+          <a href="{% url 'personalprofile:edit' item.id %}" class="card-link"
+            >Edit</a
+          >
+          <a href="{% url 'personalprofile:delete' item.id %}" class="card-link"
+            >Delete</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>

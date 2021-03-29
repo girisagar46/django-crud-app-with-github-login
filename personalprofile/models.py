@@ -6,11 +6,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class PersonalProfile(models.Model):
-    name = models.CharField(max_length=200)
+    username = models.CharField(max_length=200)
+    fullname = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
     description = models.TextField(null=True)
     phone_no = PhoneNumberField(blank=True, unique=True)
+    additional_info = models.TextField(null=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(default=timezone.now)
 
@@ -21,4 +23,4 @@ class PersonalProfile(models.Model):
         ordering = ["-published_at"]
 
     def __str__(self):
-        return self.name
+        return self.username
