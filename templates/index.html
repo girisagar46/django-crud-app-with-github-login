@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %} {% for item in object_list %}
+<!-- Should display your logged in profile here -->
+<div class="col">
+  <div class="card" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title">{{item.name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{item.email}}</h6>
+      <p class="card-text">{{item.description}}</p>
+      <p class="card-text">{{item.address}}</p>
+      <p class="card-text">{{item.phone_no}}</p>
+      <!-- Profile options -->
+      <div class="btn-group">
+        <a href="#" class="card-link">View</a>
+        <a href="{% url 'personalprofile:edit' item.pk %}" class="card-link"
+          >Edit</a
+        >
+        <a href="{% url 'personalprofile:delete' item.pk %}" class="card-link"
+          >Delete</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endblock %}

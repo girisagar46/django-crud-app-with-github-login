@@ -1,0 +1,9 @@
+Django==3.1.7
+djangorestframework==3.12.4
+
+# For form
+django-widget-tweaks==1.4.8
+
+# Phone numbers validation & form field libraries
+django-phonenumber-field==5.0.0
+phonenumbers==8.12.20

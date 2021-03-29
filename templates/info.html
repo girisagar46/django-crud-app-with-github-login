@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card" style="width: 18rem">
+  <div class="card-body">
+    <h5 class="card-title">{{personalprofile.name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{personalprofile.email}}</h6>
+    <p class="card-text">{{personalprofile.description}}</p>
+    <p class="card-text">{{personalprofile.address}}</p>
+    <p class="card-text">{{personalprofile.phone_no}}</p>
+    <!-- Profile options -->
+    <div class="btn-group">
+      <a href="#" class="card-link">View</a>
+      <a
+        href="{% url 'personalprofile:edit' personalprofile.pk %}"
+        class="card-link"
+        >Edit</a
+      >
+      <a href="#" class="card-link">Delete</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
