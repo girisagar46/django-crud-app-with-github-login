@@ -14,7 +14,11 @@
         class="card-link"
         >Edit</a
       >
-      <a href="#" class="card-link">Delete</a>
+      <a
+        href="{% url 'personalprofile:delete' personalprofile.pk %}"
+        class="card-link"
+        >Delete</a
+      >
     </div>
   </div>
 </div>
