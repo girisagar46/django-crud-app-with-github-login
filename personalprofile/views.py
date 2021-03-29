@@ -18,22 +18,16 @@ class IndexView(generic.ListView):
         """Overrides the default ListView to update or create GitHub profile record."""
         username = self.request.user
         profile = get_github_profile(username=username)
-        # Saves the basic info from GitHub API
         self.model.objects.update_or_create(
-            username=username, fullname=profile.get("name"), description=profile.get("bio")
+            username=username,
+            fullname=profile.get("name"),
+            description=profile.get("bio"),
+            additional_info=json.dumps(profile, indent=4),
         )
 
     def get_context_data(self, **kwargs):
         context = self.model.objects.filter(username=self.request.user)
         return {"profile": context}
-
-
-class AddView(generic.CreateView):
-    model = PersonalProfile
-    fields = ["name"]
-    template_name = "add.html"
-    fields = "__all__"
-    success_url = reverse_lazy("personalprofile:profiles")
 
 
 class EditView(generic.UpdateView):
@@ -42,23 +36,11 @@ class EditView(generic.UpdateView):
     template_name = "edit.html"
     fields = "__all__"
     pk_url_kwarg = "pk"
-    success_url = reverse_lazy("personalprofile:profiles")
+    success_url = reverse_lazy("personalprofile:index")
 
 
 class DeleteView(generic.DeleteView):
     model = PersonalProfile
     template_name = "confirm-delete.html"
     pk_url_kwarg = "pk"
-    success_url = reverse_lazy("personalprofile:profiles")
-
-
-class AllProfilesView(generic.ListView):
-    model = PersonalProfile
-    template_name = "profiles.html"
-    context_object_name = "post_list"
-
-
-class InfoView(generic.DetailView):
-    model = PersonalProfile
-    template_name = "info.html"
-    context_object_name = "personalprofile"
+    success_url = reverse_lazy("personalprofile:index")
