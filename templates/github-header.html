@@ -5,13 +5,13 @@
       <div class="card-body">
         <h5 class="card-title">{{item.username}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{item.email}}</h6>
-        <p class="card-text">{{item.description}}</p>
-        <pre>{{item.additional_info}}</pre>
+
+        <p class="card-text">Bio: {{item.description}}</p>
+        <p class="card-text">E-mail: {{item.email}}</p>
+        <p class="card-text">Phone number: {{item.phone_no}}</p>
+        <pre>Additional info: {{item.additional_info}}</pre>
         <!-- Profile options -->
         <div class="btn-group">
-          <a href="{% url 'personalprofile:info' item.id %}" class="card-link"
-            >View</a
-          >
           <a href="{% url 'personalprofile:edit' item.id %}" class="card-link"
             >Edit</a
           >
