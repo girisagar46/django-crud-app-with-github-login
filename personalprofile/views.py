@@ -2,6 +2,13 @@ from .models import PersonalProfile
 from django.views import generic
 from django.urls import reverse_lazy
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+@login_required(login_url='/login/')
+def home(request):
+    return render(request, 'index.html')
+
 class IndexView(generic.ListView):
     model = PersonalProfile
     template_name = 'index.html'
@@ -11,7 +18,7 @@ class AddView(generic.CreateView):
     fields = ['name']
     template_name = 'add.html'
     fields = '__all__'
-    success_url = reverse_lazy('personalprofile:index')
+    success_url = reverse_lazy('personalprofile:profiles')
 
 class EditView(generic.UpdateView):
     model = PersonalProfile
