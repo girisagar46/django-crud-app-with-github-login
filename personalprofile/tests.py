@@ -1,7 +1,10 @@
+from unittest.mock import patch
+
 from django.contrib.auth.models import User
 from django.test import Client, RequestFactory, TestCase
 
 from .constants import TEST_PASSWORD, TEST_USER, TEST_VIEWS_LIST
+from .utils import get_github_profile, get_request
 
 
 class ViewsTest(TestCase):
@@ -21,3 +24,14 @@ class ViewsTest(TestCase):
             with self.subTest(test_url=test_url["url"]):
                 response = self.client.get(test_url["url"], follow=True)
                 self.assertEquals(response.status_code, 200)
+
+
+class UtilsTest(TestCase):
+    @patch("personalprofile.utils.get_request")
+    def test_utils_get_github_profile(self, mock_resp):
+        mock_resp.return_value = {"foo": "bar"}
+        test_username = "foobar"
+        response = get_github_profile(test_username)
+
+        self.assertEquals(response, {"foo": "bar"})
+        self.assertIsInstance(response, dict)

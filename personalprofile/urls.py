@@ -17,6 +17,11 @@ urlpatterns = [
         name="profile",
     ),
     path(
+        "add/",
+        login_required(views.AddView.as_view(), login_url="/login/"),
+        name="add",
+    ),
+    path(
         "edit/<int:pk>/",
         login_required(views.EditView.as_view(), login_url="/login/"),
         name="edit",

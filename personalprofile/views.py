@@ -14,28 +14,25 @@ class IndexView(generic.ListView):
     model = PersonalProfile
     template_name = "index.html"
 
-    def get_queryset(self):
-        """
-        Overrides the default ListView get_queryset to update or
-        create GitHub profile record.
 
-        """
-        default_val = "not-set"
+class AddView(generic.CreateView):
+    model = PersonalProfile
+    fields = ["name"]
+    template_name = "add.html"
+    fields = "__all__"
+    success_url = reverse_lazy("personalprofile:index")
+
+    def get(self, request, *args, **kwargs):
         username = self.request.user
         profile = get_github_profile(username=username)
-        self.model.objects.update_or_create(
-            username=username,
-            fullname=profile.get("name", "undisclosed"),
-            description=profile.get("bio", default_val),
-            phone_no=default_val,
-            address=default_val,
-            email=profile.get("email", default_val),
-            additional_info=json.dumps(profile, indent=4),
-        )
-
-    def get_context_data(self, **kwargs):
-        context = self.model.objects.filter(username=self.request.user)
-        return {"profile": context}
+        self.initial = {
+            "username": username,
+            "fullname": profile.get("name"),
+            "description": profile.get("bio"),
+            "email": profile.get("email"),
+            "additional_info": json.dumps(profile, indent=4),
+        }
+        return super().get(request, *args, **kwargs)
 
 
 class EditView(generic.UpdateView):
@@ -51,4 +48,4 @@ class DeleteView(generic.DeleteView):
     model = PersonalProfile
     template_name = "confirm-delete.html"
     pk_url_kwarg = "pk"
-    success_url = reverse_lazy("logout")
+    success_url = reverse_lazy("personalprofile:index")

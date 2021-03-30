@@ -3,6 +3,11 @@ import json
 import requests
 
 
+def get_request(url=""):
+    response = requests.get(url)
+    return json.loads(response.text)
+
+
 def get_github_profile(username=""):
     """A helper utility to get more info from GitHub after SSO login.
 
@@ -15,8 +20,6 @@ def get_github_profile(username=""):
     """
 
     try:
-        url = f"https://api.github.com/users/{username}"
-        response = requests.get(url)
-        return json.loads(response.text)
+        return get_request(f"https://api.github.com/users/{username}")
     except Exception as e:
         return e
