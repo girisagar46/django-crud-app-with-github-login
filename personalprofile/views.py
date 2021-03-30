@@ -15,13 +15,21 @@ class IndexView(generic.ListView):
     template_name = "index.html"
 
     def get_queryset(self):
-        """Overrides the default ListView to update or create GitHub profile record."""
+        """
+        Overrides the default ListView get_queryset to update or
+        create GitHub profile record.
+
+        """
+        default_val = "not-set"
         username = self.request.user
         profile = get_github_profile(username=username)
         self.model.objects.update_or_create(
             username=username,
-            fullname=profile.get("name"),
-            description=profile.get("bio"),
+            fullname=profile.get("name", "undisclosed"),
+            description=profile.get("bio", default_val),
+            phone_no=default_val,
+            address=default_val,
+            email=profile.get("email", default_val),
             additional_info=json.dumps(profile, indent=4),
         )
 
@@ -43,4 +51,4 @@ class DeleteView(generic.DeleteView):
     model = PersonalProfile
     template_name = "confirm-delete.html"
     pk_url_kwarg = "pk"
-    success_url = reverse_lazy("personalprofile:index")
+    success_url = reverse_lazy("logout")

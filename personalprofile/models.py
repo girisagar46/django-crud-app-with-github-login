@@ -7,9 +7,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class PersonalProfile(models.Model):
     username = models.CharField(max_length=200)
-    fullname = models.CharField(max_length=200)
-    address = models.CharField(max_length=200)
-    email = models.CharField(max_length=200)
+    fullname = models.CharField(max_length=200, null=True)
+    address = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True)
     phone_no = PhoneNumberField(blank=True, unique=True)
     additional_info = models.TextField(null=True)
