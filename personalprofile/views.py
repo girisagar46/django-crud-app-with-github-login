@@ -1,9 +1,13 @@
+import json
+
+import requests
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
 from .models import PersonalProfile
+from .utils import get_github_profile
 
 
 class IndexView(generic.ListView):
@@ -16,7 +20,22 @@ class AddView(generic.CreateView):
     fields = ["name"]
     template_name = "add.html"
     fields = "__all__"
-    success_url = reverse_lazy("personalprofile:profiles")
+    success_url = reverse_lazy("personalprofile:index")
+
+    def get(self, request, *args, **kwargs):
+        """Override the default get request to set initial values
+        in the form. Once this is set we call super.get to return the template
+        ."""
+        username = self.request.user
+        profile = get_github_profile(username=username)
+        self.initial = {
+            "username": username,
+            "fullname": profile.get("name"),
+            "description": profile.get("bio"),
+            "email": profile.get("email"),
+            "additional_info": json.dumps(profile, indent=4),
+        }
+        return super().get(request, *args, **kwargs)
 
 
 class EditView(generic.UpdateView):
@@ -25,23 +44,11 @@ class EditView(generic.UpdateView):
     template_name = "edit.html"
     fields = "__all__"
     pk_url_kwarg = "pk"
-    success_url = reverse_lazy("personalprofile:profiles")
+    success_url = reverse_lazy("personalprofile:index")
 
 
 class DeleteView(generic.DeleteView):
     model = PersonalProfile
     template_name = "confirm-delete.html"
     pk_url_kwarg = "pk"
-    success_url = reverse_lazy("personalprofile:profiles")
-
-
-class AllProfilesView(generic.ListView):
-    model = PersonalProfile
-    template_name = "profiles.html"
-    context_object_name = "post_list"
-
-
-class InfoView(generic.DetailView):
-    model = PersonalProfile
-    template_name = "info.html"
-    context_object_name = "personalprofile"
+    success_url = reverse_lazy("personalprofile:index")
