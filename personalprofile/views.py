@@ -23,6 +23,9 @@ class AddView(generic.CreateView):
     success_url = reverse_lazy("personalprofile:index")
 
     def get(self, request, *args, **kwargs):
+        """Override the default get request to set initial values
+        in the form. Once this is set we call super.get to return the template
+        ."""
         username = self.request.user
         profile = get_github_profile(username=username)
         self.initial = {
