@@ -14,7 +14,9 @@ After installing the dependencies from the prerequisites, run the local server:
 ❯ python manage.py runserver 8080
 ```
 
-Then access http://localhost:8080 through thr browser
+Then access http://localhost:8080 through the browser
+
+**Please read [this doc](./docs/PROGRAM_FLOW.md) to understand the program flow**
 
 ## Unit tests
 
