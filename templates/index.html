@@ -1,2 +1,31 @@
-{% extends 'base.html' %} {% block content %} {% include 'github-header.html' %}
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  {% for item in profile.values %}
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{item.username}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{item.fullname}}</h6>
+        <p class="card-text"><strong>E-mail:</strong> {{item.email}}</p>
+        <p class="card-text">
+          <strong>Phone number:</strong> {{item.phone_no}}
+        </p>
+        <p class="card-text"><strong>Address:</strong> {{item.address}}</p>
+        <p class="card-text"><strong>Bio:</strong> {{item.description}}</p>
+        <!-- Profile options -->
+        <div class="btn-group">
+          <a href="{% url 'personalprofile:edit' item.id %}" class="card-link"
+            >Edit</a
+          >
+          <a href="{% url 'personalprofile:delete' item.id %}" class="card-link"
+            >Delete</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table-primary"></table>
+  {% endfor %}
+</div>
+
 {% endblock %}
