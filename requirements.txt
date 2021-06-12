@@ -1,5 +1,5 @@
 python-dotenv==0.16.0
-Django==3.1.8
+django>=3.1.12
 djangorestframework==3.12.4
 
 # For form
