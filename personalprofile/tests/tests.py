@@ -1,10 +1,8 @@
 from unittest.mock import patch
 
-from django.contrib.auth.models import User
-from django.test import Client, RequestFactory, TestCase
+from django.test import Client, TestCase
 
 from .constants import TEST_PASSWORD, TEST_USER, TEST_VIEWS_LIST
-from .utils import get_github_profile, get_request
 
 
 class ViewsTest(TestCase):

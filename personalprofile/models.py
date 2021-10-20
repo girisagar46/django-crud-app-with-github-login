@@ -16,6 +16,9 @@ class PersonalProfile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        db_table = "personal_profile"
+
     def get_absolute_url(self):
         return reverse("personalprofile:info", args=[self.id])
 

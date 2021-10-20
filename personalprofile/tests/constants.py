@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from .views import DeleteView, EditView, IndexView
+from personalprofile.views import DeleteView, EditView, IndexView
 
 TEST_USER = "testuser"
 TEST_PASSWORD = "hogehoge"
