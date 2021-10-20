@@ -1,0 +1,24 @@
+name: "Unit test"
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - '.github/**.yml'
+      - '!.github/workflows/test.yml'
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run migration
+        run: python manage.py makemigrations personalprofile && python manage.py migrate
+      - name: Run unit test
+        run: cp -p .env.example .env && python manage.py test
