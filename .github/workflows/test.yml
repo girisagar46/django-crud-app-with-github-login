@@ -17,8 +17,8 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Run migration
-        run: python manage.py makemigrations personalprofile && python manage.py migrate
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
       - name: Run unit test
         run: cp -p .env.example .env && python manage.py test
