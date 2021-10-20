@@ -2,6 +2,7 @@ from unittest.mock import patch
 
 from django.test import Client, TestCase
 
+from ..utils import get_github_profile
 from .constants import TEST_PASSWORD, TEST_USER, TEST_VIEWS_LIST
 
 
