@@ -1,6 +1,6 @@
 ## Prerequisite
 
-First obtain your GitHub OAuth credentials by registering a GitHub OAuth app ([as described here](https://github.com/settings/applications/new)). When you have these make note of them somewhere first.
+First obtain your GitHub OAuth credentials by registering a GitHub OAuth app ([as described here](https://github.com/settings/applications/new)). Make sure to set the **Authorization callback URL** as `http://localhost:8080/oauth/complete/github/`. When you have these make note of them somewhere first.
 
 Install the project dependencies
 
